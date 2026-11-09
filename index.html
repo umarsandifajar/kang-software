@@ -85,7 +85,16 @@ h1,h2,h3{font-family:Sora,Manrope,sans-serif;margin:0;line-height:1.15}
 .panel .hero-img{aspect-ratio:16/8;overflow:hidden}
 .panel .body{padding:26px 30px 32px}
 .panel h2{font-size:clamp(1.6rem,4vw,2.3rem);margin:6px 0 14px}
-.panel .txt{color:var(--ink);opacity:.88;white-space:pre-line;max-width:68ch}
+.panel .txt{color:var(--ink);opacity:.9;max-width:68ch}
+.txt p{margin:0 0 14px}
+.txt ul,.txt ol{margin:0 0 14px;padding-left:1.3em}
+.txt li{margin:5px 0;padding-left:4px}
+.txt li::marker{color:var(--aqua);font-weight:600}
+.txt strong{font-weight:700}
+.txt em{font-style:italic}
+.txt a{color:var(--aqua);text-underline-offset:3px;text-decoration-color:rgba(56,225,208,.4);transition:text-decoration-color .25s}
+.txt a:hover{text-decoration-color:var(--aqua)}
+.txt>:last-child{margin-bottom:0}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0}
 .tags span{font-size:.78rem;padding:4px 11px;border-radius:999px;border:1px solid var(--edge);color:var(--mute)}
 .btn{display:inline-block;margin-top:26px;padding:13px 24px;border-radius:14px;text-decoration:none;color:#fff;font-weight:600;
@@ -283,7 +292,7 @@ const POSTS = [
   {
     date: "2026-11-02",
     title: "Blender",
-    body: "Suite 3D lengkap untuk modeling, animasi, rigging, simulasi, rendering, dan compositing.\nCocok untuk pemula sampai studio profesional, dan sepenuhnya gratis.",
+    body: "Suite 3D lengkap untuk **modeling**, animasi, dan rendering.\n\nFitur utama:\n- Modeling dan *sculpting*\n- Animasi dan rigging\n- Rendering Cycles dan EEVEE\n\nCara mulai:\n1. Unduh installer\n2. Instal\n3. Buka template bawaan\n\nDokumentasi: [blender.org/manual](https://docs.blender.org/manual/)\n\nCocok untuk pemula sampai studio profesional, dan sepenuhnya gratis.",
     image: "",
     link: "https://www.blender.org/download/",
     tags: ["Desain", "3D"]
@@ -387,6 +396,31 @@ const $ = s => document.querySelector(s);
 const fmt = d => { const t = new Date(d + "T00:00:00"); return isNaN(t) ? d : t.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}); };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+/* format teks sederhana: **tebal** *miring* - bullet 1. nomor [teks](link) */
+function inline(s){
+  s = esc(s);
+  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*\w])\*([^\s*][^*]*?)\*(?!\*)/g, '$1<em>$2</em>');
+  return s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+function md(src){
+  const lines = String(src).replace(/\r/g, '').split('\n'); let out = '', mode = null, para = [];
+  const flush = () => { if(para.length){ out += '<p>' + para.map(inline).join('<br>') + '</p>'; para = []; } };
+  const close = () => { if(mode){ out += '</' + mode + '>'; mode = null; } };
+  for(const raw of lines){
+    const l = raw.trim(); let m;
+    if(!l){ flush(); close(); continue; }
+    if((m = l.match(/^[-*•]\s+(.*)$/))){ flush(); if(mode !== 'ul'){ close(); out += '<ul>'; mode = 'ul'; } out += '<li>' + inline(m[1]) + '</li>'; }
+    else if((m = l.match(/^\d+[.)]\s+(.*)$/))){ flush(); if(mode !== 'ol'){ close(); out += '<ol>'; mode = 'ol'; } out += '<li>' + inline(m[1]) + '</li>'; }
+    else { close(); para.push(l); }
+  }
+  flush(); close(); return out;
+}
+function plain(s){
+  return String(s).replace(/\r/g, '').split('\n').map(l => l.trim().replace(/^([-*•]|\d+[.)])\s+/, '')).filter(Boolean).join(' ')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1');
+}
+
 /* helper data */
 function safe(u){ u = String(u || '').trim(); return /^(javascript|vbscript|data:text)/i.test(u) ? '' : u; }
 function normDate(s){
@@ -446,11 +480,11 @@ function renderChips(){
 function renderGrid(){
   const list = sorted.filter(p =>
     (activeTag==="Semua" || (p.tags||[]).includes(activeTag)) &&
-    (p.title + " " + p.body).toLowerCase().includes(query));
+    (p.title + " " + plain(p.body)).toLowerCase().includes(query));
   $("#grid").innerHTML = list.length ? list.map(p => `
     <button class="card glass" data-i="${sorted.indexOf(p)}">
       <div class="thumb">${art(p)}${p.images.length > 1 ? `<span class="count">1/${p.images.length}</span>` : ""}</div>
-      <div class="meta"><div class="date">${fmt(p.date)}</div><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div>
+      <div class="meta"><div class="date">${fmt(p.date)}</div><h3>${esc(p.title)}</h3><p>${esc(plain(p.body))}</p></div>
     </button>`).join("") : `<div class="empty">Tidak ada software yang cocok. Coba kata kunci lain.</div>`;
 }
 
@@ -472,7 +506,7 @@ function openPost(i, trigger){
   $("#m-img").innerHTML = buildGallery(p);
   $("#m-date").textContent = fmt(p.date);
   $("#m-title").textContent = p.title;
-  $("#m-txt").textContent = p.body;
+  $("#m-txt").innerHTML = md(p.body);
   $("#m-tags").innerHTML = (p.tags||[]).map(t => `<span>${esc(t)}</span>`).join("");
   $("#m-dl").href = p.link;
   $("#m-views").textContent = "…"; const pk = postKey(p); curKey = pk;
