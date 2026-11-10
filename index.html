@@ -425,8 +425,11 @@ function plain(s){
 function safe(u){ u = String(u || '').trim(); return /^(javascript|vbscript|data:text)/i.test(u) ? '' : u; }
 function normDate(s){
   s = String(s || '').trim(); let m;
-  if(/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
-  if((m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/))) return m[3] + '-' + m[2].padStart(2,'0') + '-' + m[1].padStart(2,'0');
+  const pad = (y, mo, d) => y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  const MON = { jan:1, feb:2, mar:3, apr:4, mei:5, may:5, jun:6, jul:7, agu:8, aug:8, sep:9, okt:10, oct:10, nov:11, des:12, dec:12 };
+  if((m = s.match(/^(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})/))) return pad(m[1], m[2], m[3]);
+  if((m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})/))) return pad(m[3], m[2], m[1]);
+  if((m = s.match(/^(\d{1,2})\s+([A-Za-z]+)\.?,?\s+(\d{4})/)) && MON[m[2].slice(0, 3).toLowerCase()]) return pad(m[3], MON[m[2].slice(0, 3).toLowerCase()], m[1]);
   return s;
 }
 function parseCSV(t){
@@ -463,12 +466,12 @@ function art(p){
 let activeTag = "Semua", query = "", lastFocus = null;
 let sorted = [];
 function setPosts(list){
-  sorted = list.map(p => {
+  sorted = list.map((p, i) => {
     const imgs = Array.isArray(p.images) ? p.images : Array.isArray(p.image) ? p.image : String(p.images || p.image || '').split(',');
     const tg = Array.isArray(p.tags) ? p.tags : String(p.tags || '').split(',');
-    return { ...p, title: String(p.title || ''), body: String(p.body || ''), date: normDate(p.date),
+    return { ...p, _i: i, title: String(p.title || ''), body: String(p.body || ''), date: normDate(p.date),
       images: imgs.map(safe).filter(Boolean), tags: tg.map(t => String(t).trim()).filter(Boolean), link: safe(p.link) || '#' };
-  }).sort((a,b) => String(b.date).localeCompare(String(a.date)));
+  }).sort((a,b) => String(b.date).localeCompare(String(a.date)) || b._i - a._i);
 }
 setPosts(POSTS);
 
