@@ -4,17 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kang Software Opensource</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#101011">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0a0f26; --ink:#eef1ff; --mute:#a3abd1;
-  --violet:#7c5cff; --aqua:#38e1d0; --rose:#ff7ab8;
-  --glass:rgba(255,255,255,.07); --glass-2:rgba(255,255,255,.12); --edge:rgba(255,255,255,.18);
-  --shadow:0 20px 60px rgba(4,6,24,.55);
+  --bg:#0e1118; --ink:#ece9e1; --mute:#9aa3b5;
+  --violet:#8b83c9; --aqua:#7fc8c0; --rose:#c99aae;
+  --glass:rgba(255,255,255,.05); --glass-2:rgba(255,255,255,.09); --edge:rgba(255,255,255,.12);
+  --shadow:0 18px 50px rgba(0,0,0,.4);
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-:root[data-theme="light"]{ --bg:#eaeefc; --ink:#141a3a; --mute:#566087; --glass:rgba(255,255,255,.55); --glass-2:rgba(255,255,255,.8); --edge:rgba(255,255,255,.9); --shadow:0 20px 50px rgba(60,70,140,.22); }
-@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --bg:#eaeefc; --ink:#141a3a; --mute:#566087; --glass:rgba(255,255,255,.55); --glass-2:rgba(255,255,255,.8); --edge:rgba(255,255,255,.9); --shadow:0 20px 50px rgba(60,70,140,.22);} }
+:root[data-theme="light"]{ --aqua:#23847b; --violet:#6458b8; --rose:#b0607f; --bg:#eaeefc; --ink:#141a3a; --mute:#566087; --glass:rgba(255,255,255,.55); --glass-2:rgba(255,255,255,.8); --edge:rgba(255,255,255,.9); --shadow:0 20px 50px rgba(60,70,140,.22); }
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --aqua:#23847b; --violet:#6458b8; --rose:#b0607f; --bg:#eaeefc; --ink:#141a3a; --mute:#566087; --glass:rgba(255,255,255,.55); --glass-2:rgba(255,255,255,.8); --edge:rgba(255,255,255,.9); --shadow:0 20px 50px rgba(60,70,140,.22);} }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
@@ -185,6 +190,124 @@ footer .who:hover{color:var(--aqua)}
 #qov .qrbox img{border-radius:16px}
 #qov .pay{justify-content:center;margin:14px 0 0}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation:none!important}}
+/* ===== Soft Glass Lite: lebih ringan, palet lembut ===== */
+[hidden]{display:none!important}
+.aurora i{filter:none;border-radius:0}
+.aurora i:nth-child(1){background:radial-gradient(circle,rgba(139,131,201,.32),transparent 62%);opacity:1}
+.aurora i:nth-child(2){background:radial-gradient(circle,rgba(127,200,192,.17),transparent 62%);opacity:1}
+.aurora i:nth-child(3){background:radial-gradient(circle,rgba(201,154,174,.16),transparent 62%);opacity:1}
+.card.glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:linear-gradient(165deg,var(--glass-2),var(--glass));box-shadow:0 12px 28px -14px rgba(10,12,30,.5),inset 0 1px 0 var(--edge);content-visibility:auto;contain-intrinsic-size:auto 400px}
+.card:hover{border-color:rgba(255,255,255,.26)}
+.count{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(14,17,24,.72)}
+.sbtn{backdrop-filter:none;-webkit-backdrop-filter:none}
+.chip[aria-pressed="true"]{color:var(--ink);border-color:var(--aqua);background:linear-gradient(120deg,rgba(139,131,201,.38),rgba(127,200,192,.26));box-shadow:0 6px 20px -10px var(--aqua)}
+.btn{color:#12151c;box-shadow:0 10px 28px -10px var(--aqua)}
+:root[data-theme="light"] .btn{color:#fff}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .btn{color:#fff}}
+.sbtn:hover{color:var(--ink)}
+.hero h1,.panel h2,.donate h2{font-family:Fraunces,'Iowan Old Style',Georgia,serif;font-weight:500;letter-spacing:-.015em}
+
+/* muat lebih banyak + ke atas */
+.more{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:34px}
+.more-info{margin:0;color:var(--mute);font-size:.85rem}
+.more-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;border:1px solid var(--edge);background:var(--glass-2);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}
+.more-btn:hover{transform:translateY(-2px);border-color:var(--aqua);box-shadow:0 10px 26px -10px var(--aqua)}
+.more-btn:focus-visible,.totop:focus-visible{outline:2px solid var(--aqua);outline-offset:3px}
+.enter{animation:rise .55s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:var(--d,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+.totop{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--ink);cursor:pointer;font-size:1.1rem;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s,transform .3s,border-color .3s}
+.totop.on{opacity:1;pointer-events:auto;transform:none}
+.totop:hover{border-color:var(--aqua)}
+
+/* ===== Dark Editorial ===== */
+:root{
+  --bg:#101011; --surface:#171718; --ink:#ece7dc; --mute:#8f8a7e;
+  --violet:#b89a60; --aqua:#c9a86a; --rose:#c9a86a;
+  --glass:rgba(236,231,220,.03); --glass-2:rgba(236,231,220,.06); --edge:rgba(236,231,220,.14); --shadow:none;
+}
+:root[data-theme="light"]{--bg:#f3eee4;--surface:#fbf8f1;--ink:#1b1a17;--mute:#6b665c;--violet:#8a6a2f;--aqua:#8a6a2f;--rose:#8a6a2f;--glass:rgba(27,26,23,.03);--glass-2:rgba(27,26,23,.06);--edge:rgba(27,26,23,.16);--shadow:none}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f3eee4;--surface:#fbf8f1;--ink:#1b1a17;--mute:#6b665c;--violet:#8a6a2f;--aqua:#8a6a2f;--rose:#8a6a2f;--glass:rgba(27,26,23,.03);--glass-2:rgba(27,26,23,.06);--edge:rgba(27,26,23,.16);--shadow:none}}
+
+.glass{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.aurora i{display:none}
+.aurora{background:radial-gradient(1100px 520px at 50% -8%,rgba(201,168,106,.08),transparent 65%)}
+.aurora::after{opacity:.06;mask-image:none;-webkit-mask-image:none;background-size:auto;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* header & navigasi */
+.wrap{max-width:1240px}
+.bar{border-radius:0;border:0;border-bottom:1px solid var(--edge);background:none;padding:14px 0}
+.logo{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:1.15rem;letter-spacing:.01em}
+.logo b{border-radius:1px;width:14px;height:14px;background:var(--aqua);box-shadow:none}
+.theme{border-radius:2px;background:none;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem}
+.apps{border-radius:0;border:0;border-bottom:1px solid var(--edge);background:none;padding:14px 0;margin-top:0}
+.apps .lbl{letter-spacing:.2em}
+.app{border-radius:2px;background:none;font-weight:500}
+.app i{border-radius:2px;background:var(--aqua);color:#111}
+.app:hover{box-shadow:none}
+.sbtn{background:none}
+.sbtn:hover{transform:translateY(-2px);box-shadow:none}
+.sbtn:hover::before{opacity:.18}
+
+/* hero */
+.hero{max-width:920px;padding:84px 0 34px}
+.hero::before{content:"Katalog \00b7 Open Source";display:block;margin-bottom:24px;font-weight:600;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--aqua)}
+.hero h1{font-size:clamp(2.6rem,7.2vw,5.2rem);line-height:1.04;font-weight:500;letter-spacing:-.025em;background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--aqua)}
+.hero p{font-size:1.08rem;max-width:58ch}
+
+/* pencarian & filter */
+.tools{align-items:flex-end;gap:22px;margin:30px 0 38px}
+.search.glass{border-radius:0;border:0;border-bottom:1px solid var(--edge);background:none;padding:0}
+.search input{padding:12px 0}
+.chips{gap:6px 22px}
+.chip{border-radius:0;background:none;border:0;border-bottom:1px solid transparent;padding:6px 0;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em}
+.chip[aria-pressed="true"]{color:var(--ink);background:none;box-shadow:none;border-color:transparent;border-bottom-color:var(--aqua)}
+
+/* grid editorial */
+.grid{gap:42px 38px;counter-reset:n;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card.glass{border-radius:0;border:0;border-top:1px solid var(--edge);background:none;box-shadow:none;padding:18px 0 6px;overflow:visible}
+.card::before{display:none}
+.card:hover{transform:none}
+.card.glass:hover{border-top-color:var(--aqua)}
+.thumb{border-radius:2px}
+.thumb img,.thumb .art{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.thumb .art{filter:saturate(.45) contrast(1.05)}
+.card:hover .thumb img,.card:hover .thumb .art{transform:scale(1.045)}
+.card .meta{position:relative;padding:18px 0 0}
+.card .meta::before{counter-increment:n;content:counter(n,decimal-leading-zero);position:absolute;right:0;top:18px;font-family:Fraunces,Georgia,serif;font-size:.85rem;color:var(--mute)}
+.date{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--aqua)}
+.card h3{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.18;letter-spacing:-.01em;margin:10px 0 10px;transition:color .3s}
+.card:hover h3{color:var(--aqua)}
+.card p{font-size:.95rem;line-height:1.65}
+.count{border-radius:2px;background:rgba(16,16,17,.78)}
+@media (min-width:700px){
+  .grid .card:first-child{grid-column:span 2}
+  .grid .card:first-child .thumb{aspect-ratio:2/1}
+  .grid .card:first-child h3{font-size:2.1rem}
+}
+
+/* popup */
+.panel{clip-path:inset(100% 0 0 0 round 3px)}
+.overlay.on .panel{clip-path:inset(0 0 0 0 round 3px)}
+.panel.glass{background:var(--surface);border:1px solid var(--edge);border-radius:3px}
+.panel .body{padding:30px 36px 38px}
+.x{border-radius:2px;background:var(--surface)}
+.tags span{border-radius:0;text-transform:uppercase;letter-spacing:.1em;font-size:.68rem}
+.btn{border-radius:2px;background:var(--aqua);color:#14130f;box-shadow:none;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem}
+.btn:hover{transform:translateY(-2px)}
+.btn2{border-radius:2px;background:none;text-transform:uppercase;letter-spacing:.1em;font-size:.74rem}
+
+/* traktir & footer */
+.donate.glass{border-radius:0;border:0;border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);background:none;padding:48px 0}
+.qrbox{border-radius:3px}
+.badge{border-radius:0;background:none;text-transform:uppercase;letter-spacing:.16em;font-size:.68rem}
+.donate h2 em{background:none;-webkit-text-fill-color:currentColor;color:var(--aqua);font-style:italic}
+.pay span{border-radius:0;background:none}
+footer{margin-top:44px}
+.visits.glass{border-radius:0;background:none;border:0;padding:0;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem}
+.ig.glass{background:none}
+.more-btn{border-radius:2px;background:none;text-transform:uppercase;letter-spacing:.12em;font-size:.74rem}
+.totop{border-radius:2px;background:var(--surface)}
 </style>
 </head>
 <body>
@@ -199,7 +322,7 @@ footer .who:hover{color:var(--aqua)}
   <nav class="apps glass" id="apps" aria-label="Web lainnya"></nav>
 
   <section class="hero">
-    <h1>Software open source pilihan, gratis dan siap diunduh.</h1>
+    <h1>Software open source <em>pilihan</em>, gratis dan siap diunduh.</h1>
     <p>Kumpulan aplikasi open source yang sudah dikurasi dari Platform GitHub. Klik untuk melihat detail dan tautan unduhannya.</p>
   </section>
 
@@ -209,6 +332,8 @@ footer .who:hover{color:var(--aqua)}
   </div>
 
   <main class="grid" id="grid"></main>
+  <div class="more" id="more" hidden><p class="more-info" id="more-info"></p><button class="more-btn" id="more-btn">Muat lebih banyak</button></div>
+  <button class="totop glass" id="totop" aria-label="Kembali ke atas">↑</button>
   <section class="donate glass" id="donate">
     <div class="qrbox" id="d-qr"></div>
     <div class="dinfo">
@@ -465,6 +590,7 @@ function art(p){
 
 let activeTag = "Semua", query = "", lastFocus = null;
 let sorted = [];
+const PAGE = 12; let shown = PAGE, curList = [];
 function setPosts(list){
   sorted = list.map((p, i) => {
     const imgs = Array.isArray(p.images) ? p.images : Array.isArray(p.image) ? p.image : String(p.images || p.image || '').split(',');
@@ -480,19 +606,19 @@ function renderChips(){
   if(!tags.includes(activeTag)) activeTag = "Semua";
   $("#chips").innerHTML = tags.map(t => `<button class="chip" aria-pressed="${t===activeTag}" data-t="${esc(t)}">${esc(t)}</button>`).join("");
 }
-function renderGrid(){
-  const list = sorted.filter(p =>
+function renderGrid(from = 0){
+  curList = sorted.filter(p =>
     (activeTag==="Semua" || (p.tags||[]).includes(activeTag)) &&
     (p.title + " " + plain(p.body)).toLowerCase().includes(query));
-  $("#grid").innerHTML = list.length ? list.map(p => `
-    <button class="card glass" data-i="${sorted.indexOf(p)}">
+  updateMore(); $("#grid").innerHTML = curList.length ? curList.slice(0, shown).map((p, i) => `
+    <button class="card glass${i >= from ? ' enter' : ''}" style="--d:${Math.max(0, i - from) % PAGE * 45}ms" data-i="${sorted.indexOf(p)}">
       <div class="thumb">${art(p)}${p.images.length > 1 ? `<span class="count">1/${p.images.length}</span>` : ""}</div>
       <div class="meta"><div class="date">${fmt(p.date)}</div><h3>${esc(p.title)}</h3><p>${esc(plain(p.body))}</p></div>
     </button>`).join("") : `<div class="empty">Tidak ada software yang cocok. Coba kata kunci lain.</div>`;
 }
 
-$("#chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if(!b) return; activeTag = b.dataset.t; renderChips(); renderGrid(); });
-$("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderGrid(); });
+$("#chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if(!b) return; activeTag = b.dataset.t; shown = PAGE; renderChips(); renderGrid(); });
+$("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); shown = PAGE; renderGrid(); });
 
 /* glow mengikuti kursor */
 $("#grid").addEventListener("pointermove", e => {
@@ -622,6 +748,20 @@ async function countFor(key){
 }
 countFor('visitors').then(n => { $('#v-count').textContent = nf(n); });
 
+/* muat lebih banyak + tombol ke atas */
+function updateMore(){
+  const total = curList.length, left = total - shown;
+  $('#more').hidden = left <= 0;
+  if(left > 0){
+    $('#more-info').textContent = `Menampilkan ${shown} dari ${total} software`;
+    $('#more-btn').textContent = `Muat ${Math.min(PAGE, left)} lagi`;
+  }
+}
+$('#more-btn').addEventListener('click', () => { const from = shown; shown += PAGE; renderGrid(from); });
+const toTop = $('#totop');
+addEventListener('scroll', () => toTop.classList.toggle('on', scrollY > 900), { passive: true });
+toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+
 /* ambil data dari Google Sheets */
 async function loadSheet(){
   if(!SHEET_URL) return;
@@ -640,7 +780,7 @@ loadSheet();
 /* tema */
 $("#theme").addEventListener("click", () => {
   const r = document.documentElement;
-  const light = getComputedStyle(r).getPropertyValue("--bg").trim() === "#eaeefc";
+  const light = r.dataset.theme ? r.dataset.theme === "light" : matchMedia("(prefers-color-scheme: light)").matches;
   r.dataset.theme = light ? "dark" : "light";
 });
 
